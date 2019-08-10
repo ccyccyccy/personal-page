@@ -1,8 +1,11 @@
-import React from 'react';
+import React from "react";
 
 function App() {
   return (
-    <div>Hello World!!!~~~~!!~~!!~~</div>
+    <div>
+      <h1>Hello World!!!</h1>
+      <a href="https://github.com/ccyccyccy/">This is my GitHub</a>
+    </div>
   );
 }
 
