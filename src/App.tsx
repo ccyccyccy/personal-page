@@ -1,13 +1,25 @@
 import React from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+import HomePage from './HomePage';
+import SalesWhale from './SalesWhale';
 
 
 function App() {
   return (
-    <div>
-      <h1>Hello ~~~~~~~~~~~~~~~~ World!!!!</h1>
-      <h1>This is the personal page for Chong Chee Yuan</h1>
-      <a href="https://github.com/ccyccyccy/">This is my GitHub</a>
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/saleswhale">
+          <SalesWhale />
+        </Route>
+        <Route path="/">
+          <HomePage />
+        </Route>
+      </Switch>
+  </Router>
   );
 }
 
