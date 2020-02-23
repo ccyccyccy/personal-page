@@ -1,7 +1,7 @@
 import React from "react";
 import TeamCard from "./TeamCard";
-import { Grid, Container } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { Grid } from "@material-ui/core";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { Team } from "./Model";
 
 interface ITeamCardsProps {
@@ -9,7 +9,7 @@ interface ITeamCardsProps {
   onToggleFavorite: (team: Team) => void;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       padding: 20

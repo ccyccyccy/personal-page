@@ -1,75 +1,97 @@
 import React from "react";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Card from "@material-ui/core/Card";
-import Box from "@material-ui/core/Box";
-import TeamCard from "./TeamCard";
-import TeamCards from "./TeamCards";
-import data from "./data.json";
-import { Team, TabType } from "./Model";
-import TeamPanel from "./TeamPanel";
-import ActivityPanel from "./ActivityPanel";
-import { Grid } from "@material-ui/core";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import Drawer from "@material-ui/core/Drawer";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import InboxIcon from "@material-ui/icons/MoveToInbox";
+import TeamsMain from "./TeamsMain";
+import GroupIcon from "@material-ui/icons/Group";
+import BathtubIcon from "@material-ui/icons/Bathtub";
+import RecentActorsIcon from "@material-ui/icons/RecentActors";
+import InsertChartIcon from "@material-ui/icons/InsertChart";
+import HelpIcon from "@material-ui/icons/Help";
 
-interface ITeamTabsProps {}
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      display: "flex"
+    },
+    drawer: {
+      width: 60
+    },
+    drawerClose: {
+      width: theme.spacing(8),
+      background: "#042235",
+      overflow: "hidden"
+    },
+    icon: {
+      color: "gray",
+      marginTop: 10,
+      marginBottom: 10
+    },
+    topIcon: {
+      color: "white",
+      marginTop: 10,
+      marginBottom: 10
+    },
+    footerIcon: {
+      color: "white"
+    },
+    footer: {
+      bottom: 0,
+      position: "fixed",
+      marginBottom: 10
+    }
+  })
+);
 
-interface ITeamTabsState {
-  selectedTab: TabType;
-  teams: Team[];
+export default function MiniDrawer() {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.root}>
+      <Drawer
+        variant="permanent"
+        className={classes.drawer}
+        classes={{
+          paper: classes.drawerClose
+        }}
+      >
+        <List>
+          <ListItem button>
+            <ListItemIcon>
+              <BathtubIcon fontSize="large" className={classes.topIcon} />
+            </ListItemIcon>
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <InboxIcon className={classes.icon} />
+            </ListItemIcon>
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <GroupIcon className={classes.icon} />
+            </ListItemIcon>
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <RecentActorsIcon className={classes.icon} />
+            </ListItemIcon>
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <InsertChartIcon className={classes.icon} />
+            </ListItemIcon>
+          </ListItem>
+          <ListItem button className={classes.footer}>
+            <ListItemIcon>
+              <HelpIcon className={classes.footerIcon} />
+            </ListItemIcon>
+          </ListItem>
+        </List>
+      </Drawer>
+      <TeamsMain />
+    </div>
+  );
 }
-
-class TeamTabs extends React.Component<ITeamTabsProps, ITeamTabsState> {
-  state: ITeamTabsState = {
-    selectedTab: TabType.All,
-    teams: data.teams
-  };
-
-  handleChange = (event: React.ChangeEvent<{}>, newTabType: TabType) => {
-    console.log(newTabType);
-    this.setState((state, prop) => {
-      return { ...state, selectedTab: newTabType };
-    });
-  };
-
-  onToggleFavorite = (team: Team) => {
-    this.setState((state, prop) => {
-      const teamCopy = state.teams.slice();
-      const matchIndex = teamCopy.findIndex(x => x.id === team.id);
-      if (matchIndex >= 0) {
-        teamCopy[matchIndex].is_favorited = !team.is_favorited;
-      }
-      return {
-        ...state,
-        teams: teamCopy
-      };
-    });
-  };
-
-  render() {
-    const { selectedTab, teams } = this.state;
-
-    return (
-      <div>
-        <Tabs value={selectedTab} onChange={this.handleChange}>
-          <Tab label={TabType.All} value={TabType.All} id={TabType.All} />
-          <Tab label={TabType.Favorites} value={TabType.Favorites} id={TabType.Favorites} />
-          <Tab label={TabType.Archived} value={TabType.Archived} id={TabType.Archived} />
-        </Tabs>
-        <Grid container>
-          <Grid item xs={9}>
-            <TeamPanel
-              selectedTab={selectedTab}
-              teams={teams}
-              onToggleFavorite={this.onToggleFavorite}
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <ActivityPanel />
-          </Grid>
-        </Grid>
-      </div>
-    );
-  }
-}
-
-export default TeamTabs;

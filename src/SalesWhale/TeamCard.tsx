@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -9,11 +9,11 @@ import StarBorderIcon from "@material-ui/icons/StarBorderRounded";
 import Avatar from "@material-ui/core/Avatar";
 import { Team } from "./Model";
 import Divider from "@material-ui/core/Divider";
-import { IconButton, Grid } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import ForumIcon from "@material-ui/icons/Forum";
 import PeopleIcon from "@material-ui/icons/People";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     description: {
       fontSize: 14,

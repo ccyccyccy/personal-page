@@ -15,7 +15,7 @@ export type Activity = {
   person: User;
   action: string;
   target: string;
-  created_at: string;
+  created_at?: string;
 };
 
 export type User = {
